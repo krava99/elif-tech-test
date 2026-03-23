@@ -7,8 +7,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    // Головна сторінка редіректить на /transactions (HomeTab згідно з ТЗ)
-    router.replace("/shops");
+    router.replace("/shop");
   }, [router]);
 
   return null;

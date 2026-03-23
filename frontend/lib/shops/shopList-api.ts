@@ -6,6 +6,6 @@ export const getShops = async () => {
 };
 
 export const getProducts = async (data: { _id: string }) => {
-  const res = await nextApi.get(`/shops/${data._id}/products`);
+  const res = await nextApi.get(`/shops`);
   return res.data;
 };
