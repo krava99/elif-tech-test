@@ -1,14 +1,16 @@
+import createError from 'http-errors';
 import { Product } from '../models/shop.js';
 
-export const createProduct = async (req, res) => {
+export const createProduct = async (req, res, next) => {
   try {
     const { name, price, category, shopId } = req.body;
 
-    // Валідація: перевіряємо чи всі поля є
+    // Валідація: замість manual res.status(400) викидаємо HttpError
     if (!name || !price || !category || !shopId) {
-      return res.status(400).json({
-        message: 'All fields are required: name, price, category, shopId',
-      });
+      throw createError(
+        400,
+        'All fields are required: name, price, category, shopId',
+      );
     }
 
     const newProduct = await Product.create({
@@ -20,7 +22,6 @@ export const createProduct = async (req, res) => {
 
     res.status(201).json(newProduct);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error creating product' });
+    next(error);
   }
 };
