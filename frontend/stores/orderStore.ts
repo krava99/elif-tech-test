@@ -1,6 +1,6 @@
+import { Product } from "@/types/shop";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Product } from "@/types/shop";
 
 interface CartItem extends Product {
   quantity: number;

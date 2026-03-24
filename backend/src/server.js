@@ -17,6 +17,7 @@ app.use(express.json()); // 2. Парсинг JSON-тіла
 app.use(cors());
 
 app.use(shopsRoutes); // 3. Роутер для магазинів
+app.use('/products', shopsRoutes);
 
 app.use(notFoundHandler);
 app.use(errors());

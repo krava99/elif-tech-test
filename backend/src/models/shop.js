@@ -1,18 +1,20 @@
 import { Schema, model } from 'mongoose';
 
-// 1. Схема для конкретного товару
-const productSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true,
+const productSchema = new Schema(
+  {
+    name: { type: String, required: true, trim: true },
+    price: { type: Number, required: true, min: 0 },
+    category: { type: String, required: true }, // Категорія тепер просто рядок (або ID)
+    shopId: {
+      type: Schema.Types.ObjectId,
+      ref: 'shop',
+      required: true,
+    }, // Зв'язок із магазином
   },
-  price: {
-    type: Number,
-    required: true,
-    min: 0, // ціна не може бути від'ємною
-  },
-});
+  { timestamps: true, versionKey: false },
+);
+
+export const Product = model('product', productSchema);
 
 // 2. Схема для категорії, яка містить масив товарів
 const categorySchema = new Schema({
