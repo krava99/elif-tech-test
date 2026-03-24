@@ -8,14 +8,14 @@ const orderSchema = new Schema(
       phone: { type: String, required: true },
       address: { type: String, required: true },
     },
-    shopId: {
-      type: Schema.Types.ObjectId,
-      ref: 'shop',
-      required: true,
-    },
+
     items: [
       {
-        productId: { type: String, required: true },
+        _id: {
+          type: Schema.Types.ObjectId,
+          ref: 'product',
+          required: true,
+        },
         name: { type: String, required: true },
         price: { type: Number, required: true },
         quantity: { type: Number, required: true },

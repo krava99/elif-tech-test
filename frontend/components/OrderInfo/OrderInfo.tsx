@@ -1,11 +1,13 @@
 "use client";
 
+import { useCartStore } from "@/stores/orderStore";
 import { orderSchema, OrderSchemaType } from "@/utils/orderSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useForm } from "react-hook-form";
 
 export default function OrderInfo() {
+  const { items, getTotalPrice } = useCartStore();
   const {
     register,
     reset,
@@ -16,11 +18,40 @@ export default function OrderInfo() {
     mode: "all",
   });
 
-  const onSubmit = async (data: OrderSchemaType) => {
-    console.log("Order Data:", data);
-    // Тут буде твій запит до API
-    reset();
-    alert("Order confirmed!");
+  const onSubmit = async (formData: OrderSchemaType) => {
+    // 2. Перевірка, чи не порожній кошик
+    if (items.length === 0) {
+      alert("Please add some products to your cart first!");
+      return;
+    }
+
+    // 3. Формуємо повний об'єкт замовлення
+    const fullOrder = {
+      ...formData, // name, email, phone, address
+      items: items.map((item) => ({
+        id: item._id,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+      })),
+      totalPrice: getTotalPrice(),
+      createdAt: new Date().toISOString(),
+    };
+
+    try {
+      console.log("Sending to Backend:", fullOrder);
+
+      // 4. Запит до твого API
+      // await axios.post("/api/orders", fullOrder);
+
+      alert("Order successfully created!");
+
+      // 5. Очищення форми та кошика
+      reset();
+    } catch (error) {
+      console.error("Order error:", error);
+      alert("Failed to send order. Please try again.");
+    }
   };
 
   return (
@@ -59,7 +90,7 @@ export default function OrderInfo() {
             <input
               className="border p-2 rounded-lg active:outline-none focus:outline-none "
               {...register("phone")}
-              type="number"
+              type="tel"
               id="phone"
               placeholder="Enter your phone"
             />

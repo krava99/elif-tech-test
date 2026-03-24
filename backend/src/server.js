@@ -5,6 +5,7 @@ import { connectMongoDB } from './db/connectMongoDB.js';
 import { logger } from './middleware/logger.js';
 import shopsRoutes from './routes/shopsRoutes.js';
 import productsRoutes from './routes/productsRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { errorHandler } from './middleware/errorHandler.js';
@@ -19,6 +20,7 @@ app.use(cors());
 
 app.use('/shops', shopsRoutes);
 app.use('/products', productsRoutes);
+app.use('/orders', orderRoutes);
 
 app.use(notFoundHandler);
 app.use(errors());

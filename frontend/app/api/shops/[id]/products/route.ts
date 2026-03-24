@@ -1,4 +1,3 @@
-// app/api/shops/[id]/products/route.ts
 import { NextResponse } from "next/server";
 
 import { isAxiosError } from "axios";
@@ -8,10 +7,8 @@ export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const { id } = await params; // ОБОВ'ЯЗКОВО await
-
+  const { id } = await params;
   try {
-    // Робимо запит на реальний бекенд (порт 5000)
     const res = await globalApi.get(`/shops/${id}/products`);
 
     return NextResponse.json(res.data);

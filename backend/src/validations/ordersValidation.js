@@ -4,11 +4,11 @@ export const createOrderSchema = {
   [Segments.BODY]: Joi.object({
     // Валідація об'єкта користувача
     user: Joi.object({
-      name: Joi.string().min(2).max(10).required().messages({
+      name: Joi.string().trim().min(2).max(50).required().messages({
         'string.min': 'Name should have at least {#limit} characters',
         'any.required': 'Name is required',
       }),
-      email: Joi.string().email().required().messages({
+      email: Joi.string().trim().email().required().messages({
         'string.email': 'Invalid email format',
         'any.required': 'Email is required',
       }),
@@ -19,7 +19,7 @@ export const createOrderSchema = {
           'string.pattern.base': 'Phone should be in the format +380XXXXXXXXX',
           'any.required': 'Phone is required',
         }),
-      address: Joi.string().min(10).required().messages({
+      address: Joi.string().trim().min(10).required().messages({
         'any.required': 'Delivery address is required',
       }),
     }).required(),
@@ -33,7 +33,7 @@ export const createOrderSchema = {
     items: Joi.array()
       .items(
         Joi.object({
-          productId: Joi.string().required(),
+          _id: Joi.string().required(),
           name: Joi.string().required(),
           price: Joi.number().positive().required(),
           quantity: Joi.number().integer().min(1).required(),
