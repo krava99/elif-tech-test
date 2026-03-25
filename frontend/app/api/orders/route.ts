@@ -1,23 +1,24 @@
 import { NextResponse } from "next/server";
-import { globalApi } from "../api";
-
 import { isAxiosError } from "axios";
+import { globalApi } from "@/app/api/api";
 
-export async function GET() {
+export async function POST(request: Request) {
   try {
-    const res = await globalApi("/shops", {
-      method: "GET",
-    });
+    const body = await request.json();
 
-    return NextResponse.json(res.data, { status: res.status });
+    const res = await globalApi.post("/orders", body);
+
+    return NextResponse.json(res.data, { status: 201 });
   } catch (error) {
     if (isAxiosError(error)) {
       return NextResponse.json(
-        { error: error.message, response: error.response?.data },
+        {
+          error: error.message,
+          details: error.response?.data,
+        },
         { status: error.response?.status ?? 500 },
       );
     }
-
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 },

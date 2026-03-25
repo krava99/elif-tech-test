@@ -13,7 +13,6 @@ export const getShops = async (req, res, next) => {
 export const getProductsByShop = async (req, res, next) => {
   try {
     const { shopId } = req.params;
-
     if (!shopId || shopId === 'undefined') {
       throw createError(400, 'Valid Shop ID is required');
     }
@@ -29,7 +28,6 @@ export const getProductById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await Product.findById(id);
-
     if (!product) {
       throw createError(404, 'Product not found');
     }

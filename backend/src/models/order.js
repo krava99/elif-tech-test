@@ -27,7 +27,7 @@ const orderSchema = new Schema(
     },
   },
   {
-    timestamps: true, // Це автоматично додасть дату замовлення (createdAt)
+    timestamps: true, 
     versionKey: false,
   },
 );

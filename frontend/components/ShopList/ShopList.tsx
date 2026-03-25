@@ -28,16 +28,17 @@ export default function ShopList({ onSelectShop }: Props) {
       </div>
     );
   }
+  if (!shops) return null;
 
   return (
-    <div className="w-64 rounded-2xl bg-amber-600  flex flex-col gap-2 p-4 ">
+    <div className="w-full md:w-64 rounded-2xl bg-amber-600 flex flex-col gap-2 p-4">
       <h2 className="text-xl font-bold text-black text-center mb-2">Shops:</h2>
-      <div className="flex flex-col gap-2">
-        {shops?.map((shop) => (
+      <div className="flex flex-col sm:grid sm:grid-cols-2 md:flex md:flex-col gap-2">
+        {shops.map((shop) => (
           <button
             key={shop._id}
             onClick={() => onSelectShop(shop._id)}
-            className="flex p-3 w-full border border-black text-amber-600 justify-center rounded-lg bg-black hover:bg-amber-800  cursor-pointer"
+            className="flex p-3 w-full border border-black text-amber-600 justify-center rounded-lg bg-black hover:bg-amber-800 cursor-pointer transition-colors"
           >
             {shop.name}
           </button>

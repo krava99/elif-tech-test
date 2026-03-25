@@ -1,6 +1,5 @@
 import { Product } from "@/types/shop";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 interface CartItem extends Product {
   quantity: number;
@@ -11,6 +10,7 @@ interface CartState {
   addToCart: (product: Product) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   getTotalPrice: () => number;
+  clearCart: () => void;
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -48,4 +48,5 @@ export const useCartStore = create<CartState>((set, get) => ({
       0,
     );
   },
+  clearCart: () => set({ items: [] }),
 }));

@@ -4,10 +4,13 @@ export default function Header() {
   return (
     <>
       <nav>
-        <ul className="flex gap-20 justify-center py-4 cursor-pointer ">
-          <Link href="/">Shop</Link>
-          <Link href="/orders">Shopping Cart</Link>
-          {/* <Link href="/History">About</Link> */}
+        <ul className="flex gap-8 sm:gap-12 md:gap-20 justify-center py-4 cursor-pointer">
+          <li>
+            <Link href="/">Shop</Link>
+          </li>
+          <li>
+            <Link href="/orders">Shopping Cart</Link>
+          </li>
         </ul>
       </nav>
     </>
